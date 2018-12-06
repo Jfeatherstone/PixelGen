@@ -53,17 +53,18 @@ public class Frame implements MouseListener {
 	final Color[] PAINT_MODE_COLORS = {new Color(255, 255, 255), new Color(255, 255, 0), new Color(50, 190, 50),
 			new Color(255, 50, 50), new Color(150, 50, 50), new Color(0, 0, 0)};
 	 
+	final Color REGULAR_BORDER = new Color(40, 40, 44);
+	final Color HIGHLIGHTED_BORDER = new Color(100, 50, 200);
 	
 	public void createDefaultFrame() {
 		Image icon = null;
 		try {
 			icon = (ImageIO.read(new File("PixelGen.png")));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		frame.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize().width, java.awt.Toolkit.getDefaultToolkit().getScreenSize().height);
-		frame.setExtendedState(frame.MAXIMIZED_BOTH);
+		//frame.setExtendedState(frame.MAXIMIZED_BOTH);
 		frame.getContentPane().setBackground(new Color(40, 40, 44));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setIconImage(icon);
@@ -94,15 +95,6 @@ public class Frame implements MouseListener {
 			ButtonArray[i].setBorder(BorderFactory.createLineBorder(new Color(40, 40, 44)));
 			final int x = i;
 			ButtonArray[i].addMouseListener(this);
-			ButtonArray[i].addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseEntered(java.awt.event.MouseEvent evt) {
-					ButtonArray[x].setBorder(BorderFactory.createLineBorder(new Color(100, 50, 200)));
-				}
-				
-				public void mouseExited(java.awt.event.MouseEvent evt) {
-					ButtonArray[x].setBorder(BorderFactory.createLineBorder(new Color(40, 40, 44)));
-				}
-			});
 			ButtonArray[i].addActionListener(new ActionListener() {
 				
 				@Override
@@ -129,15 +121,7 @@ public class Frame implements MouseListener {
 		ResetButton.setBackground(PAINT_MODE_COLORS[0]);
 		ResetButton.setBorder(BorderFactory.createLineBorder(new Color(40, 40, 44)));
 		ResetButton.setFocusPainted(false);
-		ResetButton.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
-				ResetButton.setBorder(BorderFactory.createLineBorder(new Color(100, 50, 200)));
-			}
-			
-			public void mouseExited(java.awt.event.MouseEvent evt) {
-				ResetButton.setBorder(BorderFactory.createLineBorder(new Color(40, 40, 44)));
-			}
-		});
+		ResetButton.addMouseListener(this);
 		ResetButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -152,15 +136,7 @@ public class Frame implements MouseListener {
 		GenerateButton.setBackground(PAINT_MODE_COLORS[0]);
 		GenerateButton.setBorder(BorderFactory.createLineBorder(new Color(40, 40, 44)));
 		GenerateButton.setFocusPainted(false);
-		GenerateButton.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
-				GenerateButton.setBorder(BorderFactory.createLineBorder(new Color(100, 50, 200)));
-			}
-			
-			public void mouseExited(java.awt.event.MouseEvent evt) {
-				GenerateButton.setBorder(BorderFactory.createLineBorder(new Color(40, 40, 44)));
-			}
-		});
+		GenerateButton.addMouseListener(this);
 		GenerateButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -175,15 +151,7 @@ public class Frame implements MouseListener {
 		MirrorModeButton.setBackground(PAINT_MODE_COLORS[0]);
 		MirrorModeButton.setBorder(BorderFactory.createLineBorder(new Color(40, 40, 44)));
 		MirrorModeButton.setFocusPainted(false);
-		MirrorModeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseEntered(java.awt.event.MouseEvent evt) {
-				MirrorModeButton.setBorder(BorderFactory.createLineBorder(new Color(100, 50, 200)));
-			}
-			
-			public void mouseExited(java.awt.event.MouseEvent evt) {
-				MirrorModeButton.setBorder(BorderFactory.createLineBorder(new Color(40, 40, 44)));
-			}
-		});
+		MirrorModeButton.addMouseListener(this);
 		MirrorModeButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -659,7 +627,6 @@ public class Frame implements MouseListener {
 		try {
 			ImageIO.write(generated, "png", generatedfile);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		}
@@ -672,7 +639,6 @@ public class Frame implements MouseListener {
 			try {
 				img = (ImageIO.read(new File("generated" + i + ".png")));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			if (row > 7) {
@@ -686,7 +652,6 @@ public class Frame implements MouseListener {
 		try {
 			ImageIO.write(finalgen, "png", finalgeneration);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 	}
@@ -704,42 +669,10 @@ public class Frame implements MouseListener {
 		if (PixelArray[id] == 7) {
 			return;
 		}
-		if (PaintMode == 1) {
-			button.setBackground(PAINT_MODE_COLORS[1]);
-			setButtonState(button, 1);
-			PixelArray[id] = 1;
-			return;
-		}
-		if (PaintMode == 2) {
-			button.setBackground(PAINT_MODE_COLORS[2]);
-			setButtonState(button, 2);
-			PixelArray[id] = 2;
-			return;
-		}
-		if (PaintMode == 3) {
-			button.setBackground(PAINT_MODE_COLORS[3]);
-			setButtonState(button, 3);
-			PixelArray[id] = 3;
-			return;
-		}
-		if (PaintMode == 4) {
-			button.setBackground(PAINT_MODE_COLORS[4]);
-			setButtonState(button, 4);
-			PixelArray[id] = 4;
-			return;
-		}
-		if (PaintMode == 5) {
-			button.setBackground(PAINT_MODE_COLORS[5]);
-			setButtonState(button, 5);
-			PixelArray[id] = 5;
-			return;
-		}
-		if (PaintMode == 0) {
-			button.setBackground(new Color (255, 255, 255));
-			setButtonState(button, 0);
-			PixelArray[id] = 0;
-			return;
-		}
+		button.setBackground(PAINT_MODE_COLORS[PaintMode]);
+		setButtonState(button, PaintMode);
+		PixelArray[id] = PaintMode;
+		return;
 	}
 	
 	public void setButtonState (JButton button, int state) {
@@ -752,7 +685,7 @@ public class Frame implements MouseListener {
 
 	/*
 	 * 
-	 * Two of the methods done here will not be used, but the ones that are help with clicking and dragging
+	 * One of the methods done here will not be used, but the ones that are help with clicking and dragging
 	 * across boxes.
 	 * 
 	 */
@@ -764,7 +697,11 @@ public class Frame implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
+		// Whether we pressed or not, we want to adjust the border around the current button
+		if (e.getComponent() instanceof JButton)
+			((JButton)(e.getComponent())).setBorder(BorderFactory.createLineBorder(HIGHLIGHTED_BORDER));
 		// Check which button we just entered, and change it accordingly
+
 		if (mousePressed) {
 			for (int i = 0; i < ButtonArray.length; i++) {
 				if (e.getComponent().equals(ButtonArray[i])) {
@@ -779,13 +716,15 @@ public class Frame implements MouseListener {
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// Do nothing
+	public void mouseExited(MouseEvent e) {
+		if (e.getComponent() instanceof JButton)
+			((JButton)(e.getComponent())).setBorder(BorderFactory.createLineBorder(REGULAR_BORDER));
 		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		// Depending on the button pressed, we are either deleting or drawing
 		if (e.getButton() == MouseEvent.BUTTON3) {
 			previousPaintMode = PaintMode;
 			PaintMode = 0;
@@ -795,6 +734,7 @@ public class Frame implements MouseListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		// Return the paint mode to its previous value if we were erasing
 		if (e.getButton() == MouseEvent.BUTTON3)
 			PaintMode = previousPaintMode;
 		mousePressed = false;
