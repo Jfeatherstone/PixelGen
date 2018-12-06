@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Frame {
+public class Frame implements MouseListener {
 	JFrame frame = new JFrame("PixelGen");
 	JPanel panel = new JPanel();
 	int PixelArray[];
@@ -36,6 +38,11 @@ public class Frame {
 	int saver;
 	int saveg;
 	int saveb;
+	
+	// A boolean to say whether or not the mouse is currently pressed
+	boolean mousePressed;
+	// Since we want to be able to erase with dragging, we need to store the previous paint mode
+	int previousPaintMode;
 
 	public void createDefaultFrame() {
 		Image icon = null;
@@ -76,6 +83,7 @@ public class Frame {
 			ButtonArray[i].setBackground(new Color(255, 255, 255));
 			ButtonArray[i].setBorder(BorderFactory.createLineBorder(new Color(40, 40, 44)));
 			final int x = i;
+			ButtonArray[i].addMouseListener(this);
 			ButtonArray[i].addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseEntered(java.awt.event.MouseEvent evt) {
 					ButtonArray[x].setBorder(BorderFactory.createLineBorder(new Color(100, 50, 200)));
@@ -730,6 +738,54 @@ public class Frame {
 				PixelArray[i] = state;
 			}
 		}
+	}
+
+	/*
+	 * 
+	 * Two of the methods done here will not be used, but the ones that are help with clicking and dragging
+	 * across boxes.
+	 * 
+	 */
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// Do nothing
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// Check which button we just entered, and change it accordingly
+		for (int i = 0; i < ButtonArray.length; i++) {
+			if (e.getComponent().equals(ButtonArray[i]) && mousePressed) {
+				if (e.getButton() == MouseEvent.BUTTON1)
+					buttonShift(ButtonArray[i], i);
+				else
+					buttonShift(ButtonArray[i], i);
+
+			}
+		}
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// Do nothing
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (e.getButton() == MouseEvent.BUTTON3) {
+			previousPaintMode = PaintMode;
+			PaintMode = 0;
+		}
+		mousePressed = true;
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		if (e.getButton() == MouseEvent.BUTTON3)
+			PaintMode = previousPaintMode;
+		mousePressed = false;
 	}
 
 }
