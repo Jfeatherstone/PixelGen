@@ -43,7 +43,17 @@ public class Frame implements MouseListener {
 	boolean mousePressed;
 	// Since we want to be able to erase with dragging, we need to store the previous paint mode
 	int previousPaintMode;
-
+	
+	/*
+	 * I saw the comment about having trouble seeing the colors because of color blindness
+	 * though it can be a pain to change every color code below into a new one, so I've consolidated them
+	 * as variables here, which are just referenced later :)
+	 * 
+	 * */
+	final Color[] PAINT_MODE_COLORS = {new Color(255, 255, 255), new Color(255, 255, 0), new Color(50, 190, 50),
+			new Color(255, 50, 50), new Color(150, 50, 50), new Color(0, 0, 0)};
+	 
+	
 	public void createDefaultFrame() {
 		Image icon = null;
 		try {
@@ -80,7 +90,7 @@ public class Frame implements MouseListener {
 			ButtonArray[i].setText("");
 			ButtonArray[i].setSize(15, 15);
 			ButtonArray[i].setLocation(horizon, vertical);
-			ButtonArray[i].setBackground(new Color(255, 255, 255));
+			ButtonArray[i].setBackground(PAINT_MODE_COLORS[0]);
 			ButtonArray[i].setBorder(BorderFactory.createLineBorder(new Color(40, 40, 44)));
 			final int x = i;
 			ButtonArray[i].addMouseListener(this);
@@ -116,7 +126,7 @@ public class Frame implements MouseListener {
 		ResetButton.setText("Reset");
 		ResetButton.setSize(200, 25);
 		ResetButton.setLocation(frame.getSize().width /50, frame.getSize().height /2 - frame.getSize().height /3);
-		ResetButton.setBackground(new Color(255, 255, 255));
+		ResetButton.setBackground(PAINT_MODE_COLORS[0]);
 		ResetButton.setBorder(BorderFactory.createLineBorder(new Color(40, 40, 44)));
 		ResetButton.setFocusPainted(false);
 		ResetButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,7 +149,7 @@ public class Frame implements MouseListener {
 		GenerateButton.setText("Generate");
 		GenerateButton.setSize(200, 25);
 		GenerateButton.setLocation(frame.getSize().width /50, frame.getSize().height /2 - frame.getSize().height /3 + 50);
-		GenerateButton.setBackground(new Color(255, 255, 255));
+		GenerateButton.setBackground(PAINT_MODE_COLORS[0]);
 		GenerateButton.setBorder(BorderFactory.createLineBorder(new Color(40, 40, 44)));
 		GenerateButton.setFocusPainted(false);
 		GenerateButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -162,7 +172,7 @@ public class Frame implements MouseListener {
 		MirrorModeButton.setText("Mirror X Axis");
 		MirrorModeButton.setSize(200, 25);
 		MirrorModeButton.setLocation(frame.getSize().width /50, frame.getSize().height /2 - frame.getSize().height /3 + 100);
-		MirrorModeButton.setBackground(new Color(255, 255, 255));
+		MirrorModeButton.setBackground(PAINT_MODE_COLORS[0]);
 		MirrorModeButton.setBorder(BorderFactory.createLineBorder(new Color(40, 40, 44)));
 		MirrorModeButton.setFocusPainted(false);
 		MirrorModeButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -201,26 +211,26 @@ public class Frame implements MouseListener {
 		JLabel BlackText = new JLabel("Never Generate/No Border");
 		JLabel WhiteText = new JLabel("Never Generate/Possible Border");
 		OrangeText.setSize(150, 50);
-		OrangeText.setForeground(new Color (255, 155, 0));
+		OrangeText.setForeground(PAINT_MODE_COLORS[1]);
 		OrangeText.setLocation(frame.getSize().width /50 + frame.getSize().width /5 + 40, frame.getSize().height /2 - frame.getSize().height /3 - 13);
 		GreenText.setSize(150, 50);
-		GreenText.setForeground(new Color (50, 190, 50));
+		GreenText.setForeground(PAINT_MODE_COLORS[2]);
 		GreenText.setLocation(frame.getSize().width /50 + frame.getSize().width /5 + 40, frame.getSize().height /2 - frame.getSize().height /3 + 37);
 		RedText.setSize(150, 50);
-		RedText.setForeground(new Color (255, 50, 50));
+		RedText.setForeground(PAINT_MODE_COLORS[3]);
 		RedText.setLocation(frame.getSize().width /50 + frame.getSize().width /5 + 40, frame.getSize().height /2 - frame.getSize().height /3 + 87);
 		DarkRedText.setSize(150, 50);
-		DarkRedText.setForeground(new Color (155, 50, 50));
+		DarkRedText.setForeground(PAINT_MODE_COLORS[4]);
 		DarkRedText.setLocation(frame.getSize().width /50 + frame.getSize().width /5 + 40, frame.getSize().height /2 - frame.getSize().height /3 + 137);
 		BlackText.setSize(150, 50);
-		BlackText.setForeground(new Color (150, 0, 150));
+		BlackText.setForeground(PAINT_MODE_COLORS[5]);
 		BlackText.setLocation(frame.getSize().width /50 + frame.getSize().width /5 + 40, frame.getSize().height /2 - frame.getSize().height /3 + 187);
 		WhiteText.setSize(200, 50);
-		WhiteText.setForeground(new Color (255, 255, 255));
+		WhiteText.setForeground(PAINT_MODE_COLORS[0]);
 		WhiteText.setLocation(frame.getSize().width /50 + frame.getSize().width /5 + 40, frame.getSize().height /2 - frame.getSize().height /3 + 237);
 		doDefaultPaintButtonStuff(OrangeButton);
 		OrangeButton.setLocation(frame.getSize().width /50 + frame.getSize().width /5, frame.getSize().height /2 - frame.getSize().height /3);
-		OrangeButton.setBackground(new Color(255, 155, 0));
+		OrangeButton.setBackground(PAINT_MODE_COLORS[1]);
 		OrangeButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -231,7 +241,7 @@ public class Frame implements MouseListener {
 		});
 		doDefaultPaintButtonStuff(GreenButton);
 		GreenButton.setLocation(frame.getSize().width /50 + frame.getSize().width /5, frame.getSize().height /2 - frame.getSize().height /3 + 50);
-		GreenButton.setBackground(new Color(50, 190, 50));
+		GreenButton.setBackground(PAINT_MODE_COLORS[2]);
 		GreenButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -242,7 +252,7 @@ public class Frame implements MouseListener {
 		});
 		doDefaultPaintButtonStuff(RedButton);
 		RedButton.setLocation(frame.getSize().width /50 + frame.getSize().width /5, frame.getSize().height /2 - frame.getSize().height /3 + 100);
-		RedButton.setBackground(new Color(255, 50, 50));
+		RedButton.setBackground(PAINT_MODE_COLORS[3]);
 		RedButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -264,7 +274,7 @@ public class Frame implements MouseListener {
 		});
 		doDefaultPaintButtonStuff(BlackButton);
 		BlackButton.setLocation(frame.getSize().width /50 + frame.getSize().width /5, frame.getSize().height /2 - frame.getSize().height /3 + 200);
-		BlackButton.setBackground(new Color(0, 0, 0));
+		BlackButton.setBackground(PAINT_MODE_COLORS[5]);
 		BlackButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -275,7 +285,7 @@ public class Frame implements MouseListener {
 		});
 		doDefaultPaintButtonStuff(WhiteButton);
 		WhiteButton.setLocation(frame.getSize().width /50 + frame.getSize().width /5, frame.getSize().height /2 - frame.getSize().height /3 + 250);
-		WhiteButton.setBackground(new Color(255, 255, 255));
+		WhiteButton.setBackground(PAINT_MODE_COLORS[0]);
 		WhiteButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -388,7 +398,7 @@ public class Frame implements MouseListener {
 	public void resetPixelStates() {
 		MirrorMode = false;
 		for (int i = 0; i < 1024; i++) {
-			ButtonArray[i].setBackground(new Color(255, 255, 255));
+			ButtonArray[i].setBackground(PAINT_MODE_COLORS[0]);
 			PixelArray[i] = 0;
 		}
 	}
@@ -411,7 +421,7 @@ public class Frame implements MouseListener {
 			for (int i = 0; i < 1024; i++) {
 				for (int x = 1; x <= 16; x++) {
 					if (i*32 + 15 + x <= ButtonArray.length) {
-						ButtonArray[i *32 + 15 + x].setBackground(new Color(255, 255, 255));
+						ButtonArray[i *32 + 15 + x].setBackground(PAINT_MODE_COLORS[0]);
 						PixelArray[i *32 + 15 + x] = 0;
 					}
 				}
@@ -695,31 +705,31 @@ public class Frame implements MouseListener {
 			return;
 		}
 		if (PaintMode == 1) {
-			button.setBackground(new Color (255, 155, 0));
+			button.setBackground(PAINT_MODE_COLORS[1]);
 			setButtonState(button, 1);
 			PixelArray[id] = 1;
 			return;
 		}
 		if (PaintMode == 2) {
-			button.setBackground(new Color (50, 190, 50));
+			button.setBackground(PAINT_MODE_COLORS[2]);
 			setButtonState(button, 2);
 			PixelArray[id] = 2;
 			return;
 		}
 		if (PaintMode == 3) {
-			button.setBackground(new Color (255, 50, 50));
+			button.setBackground(PAINT_MODE_COLORS[3]);
 			setButtonState(button, 3);
 			PixelArray[id] = 3;
 			return;
 		}
 		if (PaintMode == 4) {
-			button.setBackground(new Color (150, 50, 50));
+			button.setBackground(PAINT_MODE_COLORS[4]);
 			setButtonState(button, 4);
 			PixelArray[id] = 4;
 			return;
 		}
 		if (PaintMode == 5) {
-			button.setBackground(new Color (0, 0, 0));
+			button.setBackground(PAINT_MODE_COLORS[5]);
 			setButtonState(button, 5);
 			PixelArray[id] = 5;
 			return;
@@ -755,13 +765,15 @@ public class Frame implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// Check which button we just entered, and change it accordingly
-		for (int i = 0; i < ButtonArray.length; i++) {
-			if (e.getComponent().equals(ButtonArray[i]) && mousePressed) {
-				if (e.getButton() == MouseEvent.BUTTON1)
-					buttonShift(ButtonArray[i], i);
-				else
-					buttonShift(ButtonArray[i], i);
-
+		if (mousePressed) {
+			for (int i = 0; i < ButtonArray.length; i++) {
+				if (e.getComponent().equals(ButtonArray[i])) {
+					if (e.getButton() == MouseEvent.BUTTON1)
+						buttonShift(ButtonArray[i], i);
+					else
+						buttonShift(ButtonArray[i], i);
+		
+				}
 			}
 		}
 	}
